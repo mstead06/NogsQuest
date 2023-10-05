@@ -151,7 +151,7 @@ class consumable(pygame.sprite.Sprite):
     def __init__(self,item):
         consumables = pygame.image.load('consumables.png')
         pygame.sprite.Sprite.__init__(self)
-        self.image = spritesheet.get_image(consumables, 18, 18,8,(0,0,0),item).convert_alpha()
+        self.image = spritesheet.get_image(consumables, 18, 18,2,(255,255,255),item).convert_alpha()
         self.rect = self.image.get_rect()
     def draw(self,display):
         display.blit(self.image, (self.rect.x, self.rect.y))

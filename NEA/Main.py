@@ -186,8 +186,11 @@ def main():
                     third_level_run = True
                     tiles.draw_board(levels.level3_state1_frame1,window)
                     key = sprites.consumable(0)
+                    key.rect.x = 9*36
+                    key.rect.y = 9*36-15
                     key.draw(window)
                     pygame.time.delay(50)
+                    key_change = -0.8
                     break
             character.update(dt,tiles.tile_rects)
             if state == 1:
@@ -279,7 +282,11 @@ def main():
                     window.blit(CAVE_BG,(0,0))
                     tiles.tile_rects = []
                     tiles.draw_board(levels.level2_state2_frame2,window)
-            
+            if counter//3 == 3:
+                key.rect.y += key_change
+                if (key.rect.y < ((9*36)-14)) or (key.rect.y > ((9*36)+14)):
+                    key_change *= -1
+            key.draw(window)
             if counter == 30:
                 counter = 0                
             counter +=1

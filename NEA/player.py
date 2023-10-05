@@ -4,7 +4,7 @@ import pygame, spritesheet
 class player(pygame.sprite.Sprite):
     def __init__(self):
         character_walk_right = pygame.image.load('character walk right.png')
-        character_walk_left = pygame.image.load('character walk left.png')
+        character_walk_left = character_walk_right.transform.flip(character_walk_right, True)
         character_jump = pygame.image.load('character jump.png')
         pygame.sprite.Sprite.__init__(self)
         self.image = spritesheet.get_image(character_walk_right, 14, 18,3,(0,0,0),0).convert_alpha()
@@ -30,38 +30,20 @@ class player(pygame.sprite.Sprite):
     def draw(self, display,frame):
         if self.on_ground and self.velocity.x > 0:
             if frame <= 6:
-                display.blit(self.image_walk_right1, (self.rect.x, self.rect.y))
+                display.blit(pygame.transform.flip(self.image_walk_right1, FACING_LEFT, False),(self.rect.x, self.rect.y))
             elif frame <= 12:
-                display.blit(self.image_walk_right2, (self.rect.x, self.rect.y))
+                display.blit(pygame.transform.flip(self.image_walk_right2, FACING_LEFT, False), (self.rect.x, self.rect.y))
             elif frame <= 18:
-                display.blit(self.image_walk_right3, (self.rect.x, self.rect.y))
+                display.blit(pygame.transform.flip(self.image_walk_right3, FACING_LEFT, False), (self.rect.x, self.rect.y))
             elif frame <= 24:
-                display.blit(self.image_walk_right4, (self.rect.x, self.rect.y))
+                display.blit(pygame.transform.flip(self.image_walk_right4, FACING_LEFT, False), (self.rect.x, self.rect.y))
             elif frame <= 30:
-                display.blit(self.image_walk_right5, (self.rect.x, self.rect.y))
-        elif self.on_ground and self.velocity.x < 0:
-            if frame <= 6:
-                display.blit(self.image_walk_left1, (self.rect.x, self.rect.y))
-            elif frame <= 12:
-                display.blit(self.image_walk_left2, (self.rect.x, self.rect.y))
-            elif frame <= 18:
-                display.blit(self.image_walk_left3, (self.rect.x, self.rect.y))
-            elif frame <= 24:
-                display.blit(self.image_walk_left4, (self.rect.x, self.rect.y))
-            elif frame <= 30:
-                display.blit(self.image_walk_left5, (self.rect.x, self.rect.y))
+                display.blit(pygame.transform.flip(self.image_walk_right5, FACING_LEFT, False), (self.rect.x, self.rect.y))
+
         elif self.on_ground == False:
-            if self.velocity.x >= 0:
-                display.blit(self.image_jump_left, (self.rect.x, self.rect.y))
-            elif self.velocity.x < 0:
-                display.blit(self.image_jump_right, (self.rect.x, self.rect.y))
+            display.blit(pygame.transform.flip(self.image_jump_left, FACING_LEFT, False),(self.rect.x, self.rect.y))
         else:
-            if self.velocity.x > 0:
-                display.blit(self.image_walk_right1, (self.rect.x, self.rect.y))
-            elif self.velocity.x < 0:
-                display.blit(self.image_walk_left1, (self.rect.x, self.rect.y))
-            else:
-                display.blit(self.image_walk_right1, (self.rect.x, self.rect.y))
+            display.blit(self.image_walk_right1, (self.rect.x, self.rect.y))
 
     def update(self, dt, tiles):
         self.horizontal_movement(dt)
